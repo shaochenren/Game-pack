@@ -1,2 +1,2 @@
-// Tetris
+// menu
 //Gregory pytak 
