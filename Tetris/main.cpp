@@ -1,8 +1,11 @@
-//Author Shaochen Ren  Gregory pytak     
+//Author Shaochen Ren  Gregory pytak    
+
+
+//Shaochen enviornment setup
 #include <SFML/Graphics.hpp>
 #include <time.h>
 using namespace sf;
-
+//Shaochen 
 const int M = 20;
 const int N = 10;
 
