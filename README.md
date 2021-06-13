@@ -2,7 +2,7 @@
 ===============   Group C final Project:   ===============================
 
 Members:
-Chase Huante, 
+Chase Huante, Shaochen Ren.Keerthi Thummati,Gregory Pytak,Ankur Prajapati
 
 We are going to make a GamePack, which has all kinds of games for users to play, such as Sudoku, Tetris, etc.. 
 
