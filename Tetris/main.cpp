@@ -1,11 +1,11 @@
 //Author Shaochen Ren  Gregory pytak    
 
 
-//Shaochen enviornment setup
+//Shaochen worked enviornment setup
 #include <SFML/Graphics.hpp>
 #include <time.h>
 using namespace sf;
-//Shaochen 
+//Shaochen worked on field set adnd figures
 const int M = 20;
 const int N = 10;
 
@@ -27,6 +27,7 @@ int figures[7][4] =
     2,3,4,5, // O
 };
 
+// Gregory works on bool check
 bool check()
 {
     for (int i = 0; i < 4; i++)
@@ -37,6 +38,7 @@ bool check()
 };
 
 
+// Gregory works on main function
 int main()
 {
     srand(time(0));
@@ -75,10 +77,12 @@ int main()
 
         if (Keyboard::isKeyPressed(Keyboard::Down)) delay = 0.05;
 
+        //Gregory worked on function move
         //// <- Move -> ///
         for (int i = 0; i < 4; i++) { b[i] = a[i]; a[i].x += dx; }
         if (!check()) for (int i = 0; i < 4; i++) a[i] = b[i];
 
+        //shaochen Ren worked on the rotated function
         //////Rotate//////
         if (rotate)
         {
@@ -92,7 +96,7 @@ int main()
             }
             if (!check()) for (int i = 0; i < 4; i++) a[i] = b[i];
         }
-
+        //Gregory
         ///////Tick//////
         if (timer > delay)
         {
@@ -113,7 +117,8 @@ int main()
 
             timer = 0;
         }
-
+        
+        //Gregory
         ///////check lines//////////
         int k = M - 1;
         for (int i = M - 1; i > 0; i--)
@@ -128,7 +133,8 @@ int main()
         }
 
         dx = 0; rotate = 0; delay = 0.3;
-
+        
+        //shaochen Ren
         /////////draw//////////
         window.clear(Color::White);
         window.draw(background);
