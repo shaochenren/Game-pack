@@ -1,6 +1,6 @@
+//shaochen-Ren
 //Author Shaochen Ren  Gregory pytak  
-// 2021/6/9
-
+// 2021/6/9  
 
 //Shaochen worked enviornment setup
 #include <SFML/Graphics.hpp>
