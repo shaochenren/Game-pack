@@ -9,8 +9,7 @@ using namespace std;
 bool FindUnassignedLocation(int grid[X][X], int &row, int &col);
 bool isSafe(int grid[X][X], int row, int col, int num);
 
-/* assign values to all unassigned locations for Sudoku solution  
- */
+/* assigning values to unassigned locations */
 bool SolveSudoku(int grid[X][X])
 {
     int row, col;
@@ -29,7 +28,7 @@ bool SolveSudoku(int grid[X][X])
     return false;
 }
 
-/* Searches the grid to find an entry that is still unassigned. */
+/* Searching grid to find unassigned entry */
 bool FindUnassignedLocation(int grid[X][X], int &row, int &col)
 {
     for (row = 0; row < X; row++)
@@ -39,8 +38,7 @@ bool FindUnassignedLocation(int grid[X][X], int &row, int &col)
     return false;
 }
 
-/* Returns whether any assigned entry n the specified row matches 
-   the given number. */
+/* Returns when assigned entry n in the specified row matches the given number. */
 bool UsedInRow(int grid[X][X], int row, int num)
 {
     for (int col = 0; col < X; col++)
@@ -49,8 +47,7 @@ bool UsedInRow(int grid[X][X], int row, int num)
     return false;
 }
 
-/* Returns whether any assigned entry in the specified column matches 
-   the given number. */
+/* Returns when assigned entry in the specified column matches the given number. */
 bool UsedInCol(int grid[X][X], int col, int num)
 {
     for (int row = 0; row < X; row++)
@@ -59,8 +56,7 @@ bool UsedInCol(int grid[X][X], int col, int num)
     return false;
 }
 
-/* Returns whether any assigned entry within the specified 3x3 box matches 
-   the given number. */
+/* Returns when assigned entry within the specified 3x3 box matches the given number. */
 bool UsedInBox(int grid[X][X], int boxStartRow, int boxStartCol, int num)
 {
     for (int row = 0; row < 3; row++)
@@ -70,8 +66,7 @@ bool UsedInBox(int grid[X][X], int boxStartRow, int boxStartCol, int num)
     return false;
 }
 
-/* Returns whether it will be legal to assign num to the given row,col location. 
- */
+/* Returns when legal to assign num to the given row,col */
 bool isSafe(int grid[X][X], int row, int col, int num)
 {
     return !UsedInRow(grid, row, num) && !UsedInCol(grid, col, num) &&
