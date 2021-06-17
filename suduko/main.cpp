@@ -72,7 +72,7 @@ bool isSafe(int grid[X][X], int row, int col, int num)
     return !UsedInRow(grid, row, num) && !UsedInCol(grid, col, num) &&
        !UsedInBox(grid, row - row % 3 , col - col % 3, num);
 }
-
+/* print result */
 void printGrid(int grid[X][X])
 {
     for (int row = 0; row < X; row++)
