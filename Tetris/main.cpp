@@ -1,7 +1,8 @@
-//Author Shaochen Ren  Gregory pytak  
-// 2021/6/15 
+//Authors: Shaochen Ren & Gregory pytak  
+// 2021/6/17 
 
 #include <SFML/Graphics.hpp>
+#include <sstream>
 #include <time.h>
 using namespace sf;
 
@@ -75,7 +76,7 @@ int main()
 		if (Keyboard::isKeyPressed(Keyboard::Down)) delay = 0.05;
 
 		// Movement
-		for (int i = 0; i < 4; i++) { b[i] = a[i]; a[i].x += dx; }
+		for (int i = 0; i < 4; i++) { b[i] = a[i]; a[i].x += dx; } //Moves left and right
 		if (!check()) for (int i = 0; i < 4; i++) a[i] = b[i];
 
 		// Rotate
@@ -107,13 +108,15 @@ int main()
 				{
 					a[i].x = figures[n][i] % 2;
 					a[i].y = figures[n][i] / 2;
+
+					Score += 25; //Adds score when tile is placed
 				}
 			}
 
 			timer = 0;
 		}
-
-		// Check Lines
+		
+		// Check Lines - Removes rows
 		int k = M - 1;
 		for (int i = M - 1; i > 0; i--)
 		{
@@ -125,7 +128,6 @@ int main()
 			}
 			if (count < N) k--;
 		}
-
 		dx = 0; rotate = 0; delay = 0.3;
 
 		// Draw
@@ -149,6 +151,38 @@ int main()
 			s.move(28, 31); //offset
 			window.draw(s);
 		}
+
+		// Displaying Score 
+	// ==================================================================================================================
+		
+		// Setting Font
+		sf::Font myFont;
+		if (!myFont.loadFromFile("arial.ttf")) {}
+		
+		// "Score:" Text
+		sf::Text score;
+		score.setFont(myFont);
+		score.setFillColor(sf::Color::Black);
+		score.setStyle(sf::Text::Regular);
+		score.setString("Score:");
+		score.setCharacterSize(25);
+		score.setPosition(40, -3);
+
+		// int Score Text
+		sf::Text scoreCurrent;
+		scoreCurrent.setFont(myFont);
+		scoreCurrent.setFillColor(sf::Color::Black);
+		scoreCurrent.setStyle(sf::Text::Regular);
+		scoreCurrent.setCharacterSize(25);
+		scoreCurrent.setPosition(115, -3);
+
+		std::stringstream s;
+		s << Score;
+		scoreCurrent.setString(s.str());
+		window.draw(score);
+		window.draw(scoreCurrent);
+
+		// ==================================================================================================================
 
 		window.draw(frame);
 		window.display();
