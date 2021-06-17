@@ -2,12 +2,14 @@
 // 2021/6/17 
 
 #include <SFML/Graphics.hpp>
+#include<SFML/Audio.hpp>
+#include<iostream>
 #include <sstream>
 #include <time.h>
 using namespace sf;
 
-const int M = 20;
-const int N = 10;
+const int M = 40;
+const int N = 50;
 
 int field[M][N] = { 0 };
 
@@ -38,9 +40,18 @@ bool check()
 
 int main()
 {
+	// add the sound effect
+	sf::SoundBuffer buffer;
+	if (!buffer.loadFromFile("123.FLAC"))
+	{
+		std::cout << "error" << std::endl;
+	}
+	sf::Sound sound;
+	sound.setBuffer(buffer);
+	sound.play();
 	srand(time(0));
 
-	RenderWindow window(VideoMode(234, 410), "Tetris");
+	RenderWindow window(VideoMode(1920, 1080), "Tetris");
 
 	Texture t1, t2, t3;
 	t1.loadFromFile("images/tiles.png");
@@ -115,7 +126,7 @@ int main()
 
 			timer = 0;
 		}
-		
+
 		// Check Lines - Removes rows
 		int k = M - 1;
 		for (int i = M - 1; i > 0; i--)
@@ -154,27 +165,27 @@ int main()
 
 		// Displaying Score 
 	// ==================================================================================================================
-		
+
 		// Setting Font
 		sf::Font myFont;
 		if (!myFont.loadFromFile("arial.ttf")) {}
-		
+
 		// "Score:" Text
 		sf::Text score;
 		score.setFont(myFont);
-		score.setFillColor(sf::Color::Black);
+		score.setFillColor(sf::Color::Red);
 		score.setStyle(sf::Text::Regular);
 		score.setString("Score:");
-		score.setCharacterSize(25);
-		score.setPosition(40, -3);
+		score.setCharacterSize(50);
+		score.setPosition(500, -3);
 
 		// int Score Text
 		sf::Text scoreCurrent;
 		scoreCurrent.setFont(myFont);
-		scoreCurrent.setFillColor(sf::Color::Black);
+		scoreCurrent.setFillColor(sf::Color::Red);
 		scoreCurrent.setStyle(sf::Text::Regular);
-		scoreCurrent.setCharacterSize(25);
-		scoreCurrent.setPosition(115, -3);
+		scoreCurrent.setCharacterSize(50);
+		scoreCurrent.setPosition(800, -3);
 
 		std::stringstream s;
 		s << Score;
