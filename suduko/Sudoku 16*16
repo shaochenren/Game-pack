@@ -1,0 +1,128 @@
+//========= Includes =========//
+#include <iostream>
+
+//========= Using ==========//
+using namespace std;
+
+//========= Constants =========//
+const int Z = 4;            // The size of 1 square in the sudoku.
+const int EMPTY = 0;        // A sign for an empty cell.
+const int STOP_INPUT = -1;  // A sign for stop get input.
+
+//========== Main ===========//
+int main()
+{
+    int sud[Z*Z][Z*Z] = { { EMPTY } };  // The sudoku board.
+
+    input_sud(sud);
+    fill_sud(sud, 0, 0);
+    print_sud(sud);
+
+    return 0;
+}
+
+//======== Input Sudoku ========//
+// Gets the input for the sudoku,
+// 0 means an empty cell.
+void input_sud(int sud[][Z*Z])
+{
+    for(int i = 0; i < Z*Z; i++)
+        for(int j = 0; j < Z*Z; j++)
+            cin >> sud[i][j];
+}
+
+//======== Fill Sudoku =========//
+// Tries to fill-in the given sudoku board
+// according to the sudoku rules.
+// Returns whether it was possible to solve it or not.
+bool fill_sud(int sud[][Z*Z], int row, int col)
+{
+    // Points to the row number of the next cell.
+    int next_row = (col == Z*Z - 1) ? row + 1 : row;
+
+    // Points to the column number of the next cell.
+    int next_col = (col + 1) % (Z*Z);
+
+    // If we get here, it means we succeed to solve the sudoku.
+    if(row == Z*Z)  
+        return true;
+
+    // Checks if we are allowed to change the value of the current cell.
+    // If we're not, then we're moving to the next one.
+    if(sud[row][col] != EMPTY)
+        return fill_sud(sud, next_row, next_col);
+
+    // We're about to try and find the legal and appropriate value
+    // to put in the current cell.
+    for(int value = 1; value <= Z*Z; value++)
+    {
+        sud[row][col] = value;
+
+        // Checks if 'value' can stay in the current cell,
+        // and returns true if it does.
+        if(is_legal(sud, row, col, value) && fill_sud(sud, next_row, next_col))
+            return true;
+
+        // Trial failed!
+        sud[row][col] = EMPTY;
+    }
+
+    // None of the values solved the sudoku.
+    return false;
+}
+
+//======== Print Sudoku ========//
+// Prints the sudoku Graphically.
+void print_sud(const int sud[][Z*Z])
+{
+    for(int i = 0; i < Z*Z; i++)
+    {
+        for(int j = 0; j < Z*Z; j++)
+            cout << sud[i][j] << ' ';
+        cout << endl;
+    }
+}
+
+
+//========= Is Row OK =========//
+// Checks and returns whether it's legal
+// to put 'val' in A specific row.
+bool is_row_ok(const int row[], int col, int val)
+{
+    for(int i = 0; i < Z*Z; i++)
+        if(i != col && row[i] == val)
+            return false;       // Found the same value again!
+
+    return true;
+}
+
+//========= Is Column OK =========//
+// Checks and returns whether it's legal
+// to put 'val' in A specific column.
+bool is_col_ok(const int sud[][Z*Z], int row, int col, int val)
+{
+    for(int i = 0; i < Z*Z; i++)
+        if(i != row && sud[i][col] == val)
+            return false;       // Found the same value again!
+
+    return true;
+}
+
+//========= Is Square OK =========//
+// Checks and returns whether it's legal
+// to put 'val' in A specific square.
+bool is_sqr_ok(const int sud[][Z*Z], int row, int col, int val)
+{
+    int row_corner = (row / Z) * Z;
+    // Holds the row number of the current square corner cell.
+
+    int col_corner = (col / Z) * Z;
+    // Holds the column number of the current square corner cell.
+
+    for(int i = row_corner; i < (row_corner + Z); i++)
+        for(int j = col_corner; j < (col_corner + Z); j++)
+            if((i != row || j != col) && sud[i][j] == val)
+                return false;       // Found the same value again!
+
+    return true;
+}
