@@ -1,15 +1,15 @@
-//Authors: Shaochen Ren & Gregory pytak  
+//Authors: Shaochen Ren & Gregory Pytak  
 // 2021/6/17 
 
 #include <SFML/Graphics.hpp>
-#include<SFML/Audio.hpp>
-#include<iostream>
+#include <SFML/Audio.hpp>
+#include <iostream>
 #include <sstream>
 #include <time.h>
 using namespace sf;
 
-const int M = 40;
-const int N = 50;
+const int M = 20;
+const int N = 10;
 
 int field[M][N] = { 0 };
 
@@ -51,7 +51,7 @@ int main()
 	sound.play();
 	srand(time(0));
 
-	RenderWindow window(VideoMode(1920, 1080), "Tetris");
+	RenderWindow window(VideoMode(240, 420), "Tetris");
 
 	Texture t1, t2, t3;
 	t1.loadFromFile("images/tiles.png");
@@ -176,16 +176,16 @@ int main()
 		score.setFillColor(sf::Color::Red);
 		score.setStyle(sf::Text::Regular);
 		score.setString("Score:");
-		score.setCharacterSize(50);
-		score.setPosition(500, -3);
+		score.setCharacterSize(25);
+		score.setPosition(60, -3);
 
 		// int Score Text
 		sf::Text scoreCurrent;
 		scoreCurrent.setFont(myFont);
 		scoreCurrent.setFillColor(sf::Color::Red);
 		scoreCurrent.setStyle(sf::Text::Regular);
-		scoreCurrent.setCharacterSize(50);
-		scoreCurrent.setPosition(800, -3);
+		scoreCurrent.setCharacterSize(25);
+		scoreCurrent.setPosition(140, -3);
 
 		std::stringstream s;
 		s << Score;
@@ -195,7 +195,7 @@ int main()
 
 		// ==================================================================================================================
 
-		window.draw(frame);
+		//window.draw(frame);
 		window.display();
 	}
 
