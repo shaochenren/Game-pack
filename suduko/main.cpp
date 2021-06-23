@@ -9,7 +9,7 @@ using namespace std;
 bool FindUnassignedLocation(int grid[X][X], int &row, int &col);
 bool isSafe(int grid[X][X], int row, int col, int num);
 
-/* assigning values to unassigned locations */
+/* assigning values */
 bool SolveSudoku(int grid[X][X])
 {
     int row, col;
@@ -28,7 +28,7 @@ bool SolveSudoku(int grid[X][X])
     return false;
 }
 
-/* Searching grid to find unassigned entry */
+/* Searching grid for unassigned entry */
 bool FindUnassignedLocation(int grid[X][X], int &row, int &col)
 {
     for (row = 0; row < X; row++)
@@ -38,7 +38,7 @@ bool FindUnassignedLocation(int grid[X][X], int &row, int &col)
     return false;
 }
 
-/* Returns when assigned entry n in the specified row matches the given number. */
+/* Row matching */
 bool UsedInRow(int grid[X][X], int row, int num)
 {
     for (int col = 0; col < X; col++)
@@ -47,7 +47,7 @@ bool UsedInRow(int grid[X][X], int row, int num)
     return false;
 }
 
-/* Returns when assigned entry in the specified column matches the given number. */
+/* Coloumn matching */
 bool UsedInCol(int grid[X][X], int col, int num)
 {
     for (int row = 0; row < X; row++)
@@ -56,7 +56,7 @@ bool UsedInCol(int grid[X][X], int col, int num)
     return false;
 }
 
-/* Returns when assigned entry within the specified 3x3 box matches the given number. */
+/* matching given number to assigned within 3x3 grid  */
 bool UsedInBox(int grid[X][X], int boxStartRow, int boxStartCol, int num)
 {
     for (int row = 0; row < 3; row++)
@@ -66,13 +66,12 @@ bool UsedInBox(int grid[X][X], int boxStartRow, int boxStartCol, int num)
     return false;
 }
 
-/* Returns when legal to assign num to the given row,col */
 bool isSafe(int grid[X][X], int row, int col, int num)
 {
     return !UsedInRow(grid, row, num) && !UsedInCol(grid, col, num) &&
        !UsedInBox(grid, row - row % 3 , col - col % 3, num);
 }
-/* print result */
+/* result */
 void printGrid(int grid[X][X])
 {
     for (int row = 0; row < X; row++)
