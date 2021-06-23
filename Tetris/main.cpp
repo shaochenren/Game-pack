@@ -1,5 +1,5 @@
 //Authors: Shaochen Ren & Gregory Pytak  
-// 2021/6/17 
+// 2021/6/22 
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
@@ -8,8 +8,8 @@
 #include <time.h>
 using namespace sf;
 
-const int M = 20;
-const int N = 10;
+const int M = 20; // Y-Axis
+const int N = 10; // X-Axis
 
 int field[M][N] = { 0 };
 
@@ -40,7 +40,8 @@ bool check()
 
 int main()
 {
-	// add the sound effect
+
+	// add the sound effect ===========================
 	sf::SoundBuffer buffer;
 	if (!buffer.loadFromFile("123.FLAC"))
 	{
@@ -51,14 +52,15 @@ int main()
 	sound.play();
 	srand(time(0));
 
+	// ================================================
+
 	RenderWindow window(VideoMode(240, 420), "Tetris");
 
-	Texture t1, t2, t3;
+	Texture t1, t2;
 	t1.loadFromFile("images/tiles.png");
-	t2.loadFromFile("images/frame.png");
-	t3.loadFromFile("images/background.png");
+	t2.loadFromFile("images/background.png");
 
-	Sprite s(t1), frame(t2), background(t3);
+	Sprite s(t1), background(t2);
 
 	int dx = 0; bool rotate = 0; int colorNum = 1;
 	float timer = 0, delay = 0.3;
@@ -115,12 +117,18 @@ int main()
 
 				colorNum = 1 + rand() % 7;
 				int n = rand() % 7;
+
 				for (int i = 0; i < 4; i++)
 				{
 					a[i].x = figures[n][i] % 2;
 					a[i].y = figures[n][i] / 2;
 
 					Score += 25; //Adds score when tile is placed
+
+				}
+				if (!check())
+				{
+					window.close();
 				}
 			}
 
@@ -136,6 +144,7 @@ int main()
 			{
 				if (field[i][j]) count++;
 				field[k][j] = field[i][j];
+				
 			}
 			if (count < N) k--;
 		}
@@ -151,7 +160,7 @@ int main()
 				if (field[i][j] == 0) continue;
 				s.setTextureRect(IntRect(field[i][j] * 18, 0, 18, 18));
 				s.setPosition(j * 18, i * 18);
-				s.move(28, 31); //offset
+				s.move(28, 31); //offset - original (28, 31)
 				window.draw(s);
 			}
 
@@ -159,7 +168,7 @@ int main()
 		{
 			s.setTextureRect(IntRect(colorNum * 18, 0, 18, 18));
 			s.setPosition(a[i].x * 18, a[i].y * 18);
-			s.move(28, 31); //offset
+			s.move(28, 31); //offset - original (28, 31)
 			window.draw(s);
 		}
 
@@ -177,7 +186,7 @@ int main()
 		score.setStyle(sf::Text::Regular);
 		score.setString("Score:");
 		score.setCharacterSize(25);
-		score.setPosition(60, -3);
+		score.setPosition(60, -3); // (60, -3)
 
 		// int Score Text
 		sf::Text scoreCurrent;
@@ -195,7 +204,6 @@ int main()
 
 		// ==================================================================================================================
 
-		//window.draw(frame);
 		window.display();
 	}
 
