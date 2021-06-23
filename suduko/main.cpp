@@ -56,7 +56,7 @@ bool UsedInCol(int grid[X][X], int col, int num)
     return false;
 }
 
-/* assigned entry within 3x3 grid matches given number. */
+/* matching given number to assigned within 3x3 grid  */
 bool UsedInBox(int grid[X][X], int boxStartRow, int boxStartCol, int num)
 {
     for (int row = 0; row < 3; row++)
