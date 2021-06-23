@@ -68,6 +68,11 @@ void print_sud(const int sud[][Z*Z])
     }
 }
 
+/* checking for value ? */
+
+
+
+
 
 bool is_row_ok(const int row[], int col, int val)
 {
