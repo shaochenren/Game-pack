@@ -65,7 +65,7 @@ int main()
 
 	int dx = 0; bool rotate = 0; int colorNum = 1;
 	float timer = 0, delay = 0.3;
-	int Score = 0;
+	int Score = 0, Level = 1;
 
 	Clock clock;
 
@@ -169,7 +169,30 @@ int main()
 			window.draw(s);
 		}
 
-		// Displaying Score 
+		// Levels
+		if (Score >= 500)
+		{
+			delay = .2;
+			Level = 2;
+		}
+		if (Score >= 1000)
+		{
+			delay = .1;
+			Level = 3;
+		}
+		if (Score >= 1500)
+		{
+			delay = .05;
+			Level = 4;
+		}
+		if (Score >= 2000)
+		{
+			delay = .01;
+			Level = 5;
+		}
+
+
+		// Displaying Score and Level
 	// ==================================================================================================================
 
 		// Setting Font
@@ -199,9 +222,32 @@ int main()
 		window.draw(score);
 		window.draw(scoreCurrent);
 
+		// Level: Text
+		sf::Text level;
+		level.setFont(myFont);
+		level.setFillColor(sf::Color::Cyan);
+		level.setStyle(sf::Text::Regular);
+		level.setString("Level:");
+		level.setCharacterSize(20);
+		level.setPosition(80, 20); // (60, -3)
+
+		// int Level Text
+		sf::Text levelCurrent;
+		levelCurrent.setFont(myFont);
+		levelCurrent.setFillColor(sf::Color::Cyan);
+		levelCurrent.setStyle(sf::Text::Regular);
+		levelCurrent.setCharacterSize(20);
+		levelCurrent.setPosition(140, 20);
+
+		std::stringstream l;
+		l << Level;
+		levelCurrent.setString(l.str());
+		window.draw(level);
+		window.draw(levelCurrent);
+
 		// ==================================================================================================================
 
-		if (!check()) // Game Pause
+		if (!check()) // Game Over
 		{
 			delay = 10000;
 
@@ -215,7 +261,7 @@ int main()
 
 			sf::Text exit;
 			exit.setFont(myFont);
-			exit.setFillColor(sf::Color::Blue);
+			exit.setFillColor(sf::Color::Magenta);
 			exit.setStyle(sf::Text::Regular);
 			exit.setString("Press Space to Exit");
 			exit.setCharacterSize(15);
