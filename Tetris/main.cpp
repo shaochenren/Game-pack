@@ -1,16 +1,14 @@
 //Authors: Shaochen Ren & Gregory Pytak  
-// 2021/6/24 
-
+// 2021/6/17 
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <iostream>
 #include <sstream>
 #include <time.h>
-#include "Tetris.h"
 using namespace sf;
 
-const int M = 20; // Y-Axis
-const int N = 10; // X-Axis
+const int M = 20;
+const int N = 10;
 
 int field[M][N] = { 0 };
 
@@ -41,10 +39,9 @@ bool check()
 
 int main()
 {
-
-	// add the sound effect ===========================
+	// add the sound effect
 	sf::SoundBuffer buffer;
-	if (!buffer.loadFromFile("123.FLAC"))
+	if (!buffer.loadFromFile("1234.FLAC"))
 	{
 		std::cout << "error" << std::endl;
 	}
@@ -53,19 +50,20 @@ int main()
 	sound.play();
 	srand(time(0));
 
-	// ================================================
-
 	RenderWindow window(VideoMode(240, 420), "Tetris");
 
-	Texture t1, t2;
+	Texture t1, t2, t3;
 	t1.loadFromFile("images/tiles.png");
-	t2.loadFromFile("images/background.png");
+	t2.loadFromFile("images/frame.png");
+	t3.loadFromFile("images/background.png");
 
-	Sprite s(t1), background(t2);
+	Sprite s(t1), frame(t2), background(t3);
 
 	int dx = 0; bool rotate = 0; int colorNum = 1;
-	float timer = 0, delay = 0.3;
-	int Score = 0;
+	float timer = 0, delay = 0.3, timer1 = 0;
+	double Score = 0;
+	int Level = 0;
+	
 
 	Clock clock;
 
@@ -74,6 +72,10 @@ int main()
 		float time = clock.getElapsedTime().asSeconds();
 		clock.restart();
 		timer += time;
+		timer1 += time;
+		//Time elapsed = clock.getElapsedTime();
+	
+		
 
 		Event e;
 		while (window.pollEvent(e))
@@ -106,10 +108,11 @@ int main()
 			}
 			if (!check()) for (int i = 0; i < 4; i++) a[i] = b[i];
 		}
-
+		
 		// Timer Tick
 		if (timer > delay)
 		{
+			
 			for (int i = 0; i < 4; i++) { b[i] = a[i]; a[i].y += 1; }
 
 			if (!check())
@@ -118,20 +121,21 @@ int main()
 
 				colorNum = 1 + rand() % 7;
 				int n = rand() % 7;
-
 				for (int i = 0; i < 4; i++)
 				{
 					a[i].x = figures[n][i] % 2;
 					a[i].y = figures[n][i] / 2;
 
-					Score += 25; //Adds score when tile is placed
-
+					Score += 25;//Adds score when tile is placed
+					if (M == 15)
+					{
+						window.close();
+					}
 				}
 			}
 
 			timer = 0;
-		}
-
+		}	
 		// Check Lines - Removes rows
 		int k = M - 1;
 		for (int i = M - 1; i > 0; i--)
@@ -141,12 +145,36 @@ int main()
 			{
 				if (field[i][j]) count++;
 				field[k][j] = field[i][j];
-				
 			}
-			if (count < N) k--;
+			if (count < N)
+			{
+				k--;
+			}
+				
 		}
-		dx = 0; rotate = 0; delay = 0.3;
-
+		// set the difficulities as the time goes by
+		Level = 1;
+		dx = 0; rotate = 0; delay = 0.4;
+		if (timer1 > 5)
+		{
+			delay = 0.2;
+			Score += 0.01;
+			Level = 2;
+		}
+		if (timer1 > 10)
+		{
+			delay = 0.1;
+			Score += 0.05;
+			Level = 3;
+		}
+		if (timer1 > 30)
+		{
+			window.close();
+			std::cout << "your final score is " << Score << std::endl;
+			std::cout << "thank you for play Tetris" << std::endl;
+			
+			
+		}
 		// Draw
 		window.clear(Color::White);
 		window.draw(background);
@@ -157,7 +185,7 @@ int main()
 				if (field[i][j] == 0) continue;
 				s.setTextureRect(IntRect(field[i][j] * 18, 0, 18, 18));
 				s.setPosition(j * 18, i * 18);
-				s.move(28, 31); //offset - original (28, 31)
+				s.move(28, 31); //offset
 				window.draw(s);
 			}
 
@@ -165,7 +193,7 @@ int main()
 		{
 			s.setTextureRect(IntRect(colorNum * 18, 0, 18, 18));
 			s.setPosition(a[i].x * 18, a[i].y * 18);
-			s.move(28, 31); //offset - original (28, 31)
+			s.move(28, 31); //offset
 			window.draw(s);
 		}
 
@@ -178,40 +206,51 @@ int main()
 
 		// "Score:" Text
 		sf::Text score;
+		sf::Text level;
 		score.setFont(myFont);
+		level.setFont(myFont);
 		score.setFillColor(sf::Color::Red);
+		level.setFillColor(sf::Color::Red);
 		score.setStyle(sf::Text::Regular);
+		level.setStyle(sf::Text::Regular);
 		score.setString("Score:");
+		level.setString("level:");
 		score.setCharacterSize(25);
-		score.setPosition(60, -3); // (60, -3)
+		level.setCharacterSize(25);
+		score.setPosition(60, -3);
+		level.setPosition(60, 30);
 
 		// int Score Text
 		sf::Text scoreCurrent;
+		sf::Text levelCurrent;
 		scoreCurrent.setFont(myFont);
 		scoreCurrent.setFillColor(sf::Color::Red);
 		scoreCurrent.setStyle(sf::Text::Regular);
 		scoreCurrent.setCharacterSize(25);
 		scoreCurrent.setPosition(140, -3);
+		levelCurrent.setFont(myFont);
+		levelCurrent.setFillColor(sf::Color::Red);
+		levelCurrent.setStyle(sf::Text::Regular);
+		levelCurrent.setCharacterSize(25);
+		levelCurrent.setPosition(140, 30);
 
 		std::stringstream s;
+		std::stringstream d;
 		s << Score;
+		d << Level;
 		scoreCurrent.setString(s.str());
 		window.draw(score);
 		window.draw(scoreCurrent);
+		levelCurrent.setString(d.str());
+		window.draw(level);
+		window.draw(levelCurrent);
 
 		// ==================================================================================================================
 
-		if (!check()) // Game Pause
-		{
-			
-
-			// window.close();
-		}
-
-		// ==================================================================================================================
-
+		window.draw(frame);
 		window.display();
 	}
+
 
 	return 0;
 }
