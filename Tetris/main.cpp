@@ -204,7 +204,7 @@ int main()
 		sf::Font myFont;
 		if (!myFont.loadFromFile("arial.ttf")) {}
 
-		// "Score:" Text
+		// "Score and level:" Text
 		sf::Text score;
 		sf::Text level;
 		score.setFont(myFont);
@@ -220,7 +220,7 @@ int main()
 		score.setPosition(60, -3);
 		level.setPosition(60, 30);
 
-		// int Score Text
+		// int Score and level Text
 		sf::Text scoreCurrent;
 		sf::Text levelCurrent;
 		scoreCurrent.setFont(myFont);
