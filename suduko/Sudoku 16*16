@@ -78,10 +78,13 @@ void print_sud(const int sud[][Z*Z])
     }
 }
 
-/* checking for value ? */
-
-
-
+/* checking for value */
+bool is_legal(const int sud[][Z*Z], int row, int col, int val)
+{
+    return (is_row_ok(sud[row], col, val) &&
+            is_col_ok(sud, row, col, val) &&
+            is_sqr_ok(sud, row, col, val));
+}
 
 
 bool is_row_ok(const int row[], int col, int val)
