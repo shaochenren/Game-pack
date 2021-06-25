@@ -9,6 +9,13 @@ const int EMPTY = 0;
 const int STOP_INPUT = -1;  
 
 /* declaring functions here should be added*/
+void input_sud(int sud[][Z*Z]);
+bool fill_sud(int sud[][Z*Z], int row, int col);
+void print_sud(const int sud[][Z*Z]);
+bool is_legal(const int sud[][Z*Z], int row, int col, int val);
+bool is_row_ok(const int row[], int col, int val);
+bool is_col_ok(const int sud[][Z*Z], int row, int col, int val);
+bool is_sqr_ok(const int sud[][Z*Z], int row, int col, int val);
 
 int main()
 {
