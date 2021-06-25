@@ -141,7 +141,7 @@ int main()
 			{
 				if (field[i][j]) count++;
 				field[k][j] = field[i][j];
-				
+
 			}
 			if (count < N) k--;
 		}
