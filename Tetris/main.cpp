@@ -257,7 +257,7 @@ int main()
 			gameOver.setStyle(sf::Text::Regular);
 			gameOver.setString("Game Over");
 			gameOver.setCharacterSize(30);
-			gameOver.setPosition(50, 150);
+			gameOver.setPosition(50, 80);
 
 			sf::Text exit;
 			exit.setFont(myFont);
@@ -265,7 +265,7 @@ int main()
 			exit.setStyle(sf::Text::Regular);
 			exit.setString("Press Space to Exit");
 			exit.setCharacterSize(15);
-			exit.setPosition(60, 180);
+			exit.setPosition(60, 110);
 
 			window.draw(gameOver);
 			window.draw(exit);
