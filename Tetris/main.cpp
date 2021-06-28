@@ -1,5 +1,5 @@
 //Authors: Shaochen Ren & Gregory Pytak  
-// 2021/6/24 
+// 2021/6/28 
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
@@ -139,9 +139,7 @@ int main()
 					sound2.play();
 
 					Score += 25; //Adds score when tile is placed
-
-
-
+	
 				}
 			}
 
@@ -157,7 +155,7 @@ int main()
 			{
 				if (field[i][j]) count++;
 				field[k][j] = field[i][j];
-
+				
 			}
 			if (count < N) k--;
 		}
@@ -191,23 +189,21 @@ int main()
 			delay = .2;
 			Level = 2;
 		}
-
-		if (Score >= 1000)
+		if (Score >= 1500)
 		{
 			delay = .1;
 			Level = 3;
 		}
-		if (Score >= 1500)
+		if (Score >= 2500)
 		{
 			delay = .05;
 			Level = 4;
 		}
-		if (Score >= 2000)
+		if (Score >= 3500)
 		{
 			delay = .01;
 			Level = 5;
 		}
-
 
 		// Displaying Score and Level
 	// ==================================================================================================================
