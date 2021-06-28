@@ -48,22 +48,23 @@ int TETRIS()
 	sf::SoundBuffer buffer;
 	sf::SoundBuffer buffer1;
 	sf::SoundBuffer buffer2;
-	if (!buffer.loadFromFile("123.FLAC"))
+	if (!buffer.loadFromFile("1234.FLAC"))
 	{
 		std::cout << "error" << std::endl;
 	}
-	//if (!buffer2.loadFromFile("12.FLAC"))
-	//{
-	//	std::cout << "error" << std::endl;
-	//}
-	//if (!buffer.loadFromFile("1234.FLAC"))
-	//{
-	//	std::cout << "error" << std::endl;
-	//}
+	if (!buffer1.loadFromFile("123.FLAC"))
+	{
+		std::cout << "error" << std::endl;
+	}
+	if (!buffer2.loadFromFile("12.FLAC"))
+	{
+		std::cout << "error" << std::endl;
+	}
 
-	sf::Sound sound;
-	sound.setBuffer(buffer);
-	sound.play();
+	sf::Sound sound1, sound2;
+	sound1.setBuffer(buffer);
+	sound1.play();
+	srand(time(0));
 
 	// ================================================
 	//srand(time(0));
@@ -136,6 +137,9 @@ int TETRIS()
 				{
 					a[i].x = figures[n][i] % 2;
 					a[i].y = figures[n][i] / 2;
+
+					sound2.setBuffer(buffer1);
+					sound2.play();
 
 					Score += 25; //Adds score when tile is placed
 
