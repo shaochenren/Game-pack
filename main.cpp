@@ -1,7 +1,7 @@
 // GROUP C
 // Chase Huante, Shaochen Ren, Gregory Pytak, Keerthi Thummati, Ankur Prajapati
 #include <SFML/Graphics.hpp>
-#include <iostream>
+#include<iostream>
 #include <cstdio>
 #include <cstring>
 #include <cstdlib>
@@ -13,12 +13,16 @@ using namespace std;
 int main() {
 
 	// open up UI window
-	sf::RenderWindow window(sf::VideoMode(600, 600), "Game-Pack");
+	sf::RenderWindow window(sf::VideoMode(400, 600), "Game-Pack");
 	Menu menu(window.getSize().x, window.getSize().y);
+
+	Texture t1;
+	t1.loadFromFile("images/menuBackground.jpg");
+
+	Sprite background(t1);
 
 	while (window.isOpen())
 	{
-
 		sf::Event event;
 		while (window.pollEvent(event))
 		{
@@ -38,64 +42,31 @@ int main() {
 				case sf::Keyboard::Return:
 					switch (menu.getPressedItem())
 					{
-					// case 0 to call Tetris.h and open tetris 
+						// case 0 to call Tetris.h and open tetris 
 					case 0:
 						TETRIS();
 						break;
-					// case 0 to call Tetris.h and open tetris
+						// case 0 to call Tetris.h and open tetris
 					case 1:
 						SUDOKU();
 						break;
-					// case 2 for EXIT
+						// case 2 for EXIT
 					case 2:
 						window.close();
 						break;
 					}
 					break;
 				}
-			break;
+				break;
 			case sf::Event::Closed:
 				window.close();
 				break;
 			}
+
 		}
 		window.clear();
+		window.draw(background);
 		menu.draw(window);
 		window.display();
 	}
 }
-
-
-//// ====================================== NON-UI MENU PROTOTYPE =========================================================================
-//// Current code just allows traversal of other games that can be called through this menu
-//int main() {
-//	int choice;
-//	do {
-//		cout << "\n================= GAME-PACK ===================\n";
-//		cout << "Enter the number for what game you wish to play:\n1 = Tetris\n2 = Sudoku\n3 = Exit\n>";
-//		cin >> choice;
-//
-//		// simple switch case setup
-//		switch (choice) {
-//
-//		case 1:
-//			cout << "1 for Tetris\n";
-//			TETRIS();
-//			break;
-//
-//		case 2:
-//			cout << "2 for Sudoku\n";
-//			SUDOKU();
-//			break;
-//
-//		case 3:
-//			cout << "3 = EXIT\n";
-//			break;
-//		}
-//
-//	} while (choice != 3);
-//
-//
-//	cout << "\nBYE BYE\n";
-//	return 0;
-//}
