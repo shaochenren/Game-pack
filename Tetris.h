@@ -1,5 +1,5 @@
 // Group C 
-// header where the tetris game will be held. waiting for game to be complete before combining
+// Chase Huante, Shaochen Ren, Gregory Pytak, Keerthi Thummati, Ankur Prajapati
 #pragma once
 #include "Menu.h"
 #include <SFML/Graphics.hpp>
@@ -259,7 +259,7 @@ int TETRIS()
 		l << Level;
 		levelCurrent.setString(l.str());
 		window.draw(level);
-		window.draw(levelCurrent);	
+		window.draw(levelCurrent);
 
 		// ==================================================================================================================
 
