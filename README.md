@@ -12,7 +12,20 @@ This program isn’t a need as much as a want.  This collection of games offers 
 
 SFML version 2.5.1
 
+DEBUG Part
+
 linker set sfml-graphic.lib sfml-window.libsfml-system.lib
+
+c/c++   sfml-graphic-d.lib sfml-window-d.libsfml-system-d.lib
+
+All configurtion 
+
+linker set sfml-graphic.lib sfml-window.libsfml-system.lib
+
+linker set sfml-graphic.lib sfml-window.libsfml-system.lib
+
+c/c++   sfml-graphic-d.lib sfml-window-d.libsfml-system-d.lib
+
 
 
 # Tetris
