@@ -1,101 +1,81 @@
 #include <iostream>
-#include <cstdio>
-#include <cstring>
-#include <cstdlib>
-using namespace std;
-#define UNASSIGNED 0
 #define X 9
+using namespace std;
+int grid[X][X] = {
+   {3, 0, 6, 5, 0, 8, 4, 0, 0},
+   {5, 2, 0, 0, 0, 0, 0, 0, 0},
+   {0, 8, 7, 0, 0, 0, 0, 3, 1},
+   {0, 0, 3, 0, 1, 0, 0, 8, 0},
+   {9, 0, 0, 8, 6, 3, 0, 0, 5},
+   {0, 5, 0, 0, 9, 0, 6, 0, 0},
+   {1, 3, 0, 0, 0, 0, 2, 5, 0},
+   {0, 0, 0, 0, 0, 0, 0, 7, 4},
+   {0, 0, 5, 2, 0, 6, 3, 0, 0}
+};
+bool isPresentInCol(int col, int num){ 
+   for (int row = 0; row < X; row++)
+      if (grid[row][col] == num)
+         return true;
+   return false;
+}
+bool isPresentInRow(int row, int num){ 
+   for (int col = 0; col < X; col++)
+      if (grid[row][col] == num)
+         return true;
+   return false;
+}
+bool isPresentInBox(int boxStartRow, int boxStartCol, int num){
 
-bool FindUnassignedLocation(int grid[X][X], int &row, int &col);
-bool isSafe(int grid[X][X], int row, int col, int num);
-
-/* assigning values */
-bool SolveSudoku(int grid[X][X])
-{
-    int row, col;
-    if (!FindUnassignedLocation(grid, row, col))
-       return true;
-    for (int num = 1; num <= 9; num++)
-    {
-    if (isSafe(grid, row, col, num))
-    {
-        grid[row][col] = num;
-        if (SolveSudoku(grid))
+   for (int row = 0; row < 3; row++)
+      for (int col = 0; col < 3; col++)
+         if (grid[row+boxStartRow][col+boxStartCol] == num)
             return true;
-        grid[row][col] = UNASSIGNED;
-    }
-    }
-    return false;
+   return false;
 }
-
-/* Searching grid for unassigned entry */
-bool FindUnassignedLocation(int grid[X][X], int &row, int &col)
-{
-    for (row = 0; row < X; row++)
-        for (col = 0; col < X; col++)
-            if (grid[row][col] == UNASSIGNED)
-                return true;
-    return false;
+void sudokuGrid(){ 
+   for (int row = 0; row < X; row++){
+      for (int col = 0; col < X; col++){
+         if(col == 3 || col == 6)
+            cout << " | ";
+         cout << grid[row][col] <<" ";
+      }
+      if(row == 2 || row == 5){
+         cout << endl;
+         for(int i = 0; i<X; i++)
+            cout << "---";
+      }
+      cout << endl;
+   }
 }
-
-/* Row matching */
-bool UsedInRow(int grid[X][X], int row, int num)
-{
-    for (int col = 0; col < X; col++)
-    if (grid[row][col] == num)
-        return true;
-    return false;
-}
-
-/* Coloumn matching */
-bool UsedInCol(int grid[X][X], int col, int num)
-{
-    for (int row = 0; row < X; row++)
-        if (grid[row][col] == num)
+bool findEmptyPlace(int &row, int &col){ 
+   for (row = 0; row < X; row++)
+      for (col = 0; col < X; col++)
+         if (grid[row][col] == 0)
             return true;
-    return false;
+   return false;
 }
-
-/* matching given number to assigned within 3x3 grid  */
-bool UsedInBox(int grid[X][X], int boxStartRow, int boxStartCol, int num)
-{
-    for (int row = 0; row < 3; row++)
-        for (int col = 0; col < 3; col++)
-            if (grid[row+boxStartRow][col+boxStartCol] == num)
-                return true;
-    return false;
+bool isValidPlace(int row, int col, int num){
+  
+   return !isPresentInRow(row, num) && !isPresentInCol(col, num) && !isPresentInBox(row - row%3 ,
+col - col%3, num);
 }
-
-bool isSafe(int grid[X][X], int row, int col, int num)
-{
-    return !UsedInRow(grid, row, num) && !UsedInCol(grid, col, num) &&
-       !UsedInBox(grid, row - row % 3 , col - col % 3, num);
+bool solveSudoku(){
+   int row, col;
+   if (!findEmptyPlace(row, col))
+      return true; 
+   for (int num = 1; num <= 9; num++){ 
+      if (isValidPlace(row, col, num)){ 
+         grid[row][col] = num;
+         if (solveSudoku()) 
+            return true;
+         grid[row][col] = 0; 
+      }
+   }
+   return false;
 }
-/* result */
-void printGrid(int grid[X][X])
-{
-    for (int row = 0; row < X; row++)
-    {
-        for (int col = 0; col < X; col++)
-            cout<<grid[row][col]<<"  ";
-        cout<<endl;
-    }
-}
-
-int main()
-{
-    int grid[X][X] = {{3, 0, 6, 5, 0, 8, 4, 0, 0},
-                      {5, 2, 0, 0, 0, 0, 0, 0, 0},
-                      {0, 8, 7, 0, 0, 0, 0, 3, 1},
-                      {0, 0, 3, 0, 1, 0, 0, 8, 0},
-                      {9, 0, 0, 8, 6, 3, 0, 0, 5},
-                      {0, 5, 0, 0, 9, 0, 6, 0, 0},
-                      {1, 3, 0, 0, 0, 0, 2, 5, 0},
-                      {0, 0, 0, 0, 0, 0, 0, 7, 4},
-                      {0, 0, 5, 2, 0, 6, 3, 0, 0}};
-    if (SolveSudoku(grid) == true)
-        printGrid(grid);
-    else
-        cout<<"No solution exists"<<endl;
-    return 0;
+int main(){
+   if (solveSudoku() == true)
+      sudokuGrid();
+   else
+      cout << "No solution exists";
 }
