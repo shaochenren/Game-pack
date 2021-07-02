@@ -8,6 +8,13 @@ We are going to make a GamePack, which has all kinds of games for users to play,
 
 This program isn’t a need as much as a want.  This collection of games offers a relaxing, fun escape.
 
+# SFML Set Up
+
+SFML version 2.5.1
+
+linker set sfml-graphic.lib sfml-window.libsfml-system.lib
+
+
 # Tetris
 Tetris (Russian: Тéтрис [ˈtʲɛtrʲɪs]) is a tile-matching video game created by Russian software engineer Alexey Pajitnov in 1984 for the Electronika 60 computer. It has been published by several companies, most prominently during a dispute over the appropriation of the rights in the late 1980s. After a significant period of publication by Nintendo, the rights reverted to Pajitnov in 1996, who co-founded The Tetris Company with Henk Rogers to manage licensing.
 
