@@ -45,7 +45,7 @@ Please note that all your contributions will fall under the Gamepack licence, an
 If you find a bug (and you will probably see many), please search for existing <a href="https://github.com/methusalah/OpenRTS/issues?q=is%3Aopen+is%3Aissue+label%3Abug" target="_blank">bug reports</a> to avoid duplicates. Then open your issue with a little test case. You can also report it on the forum, if you prefer.
 
 # Licensing
-Gamepack is released under the <a href="http://choosealicense.com/licenses/mit/" target="_blank">MIT License</a>, which will also apply to any contributions made to OpenRTS. See the file <a href="https://raw.githubusercontent.com/methusalah/OpenRTS/master/LICENSE" target="_blank">LICENSE</a>.
+Gamepack is released under the <a href="http://choosealicense.com/licenses/mit/" target="_blank">MIT License</a>, which will also apply to any contributions made to Gamepack. See the file <a href="https://raw.githubusercontent.com/methusalah/OpenRTS/master/LICENSE" target="_blank">LICENSE</a>.
 
 
 
