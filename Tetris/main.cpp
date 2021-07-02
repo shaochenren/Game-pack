@@ -54,10 +54,7 @@ int main()
 	{
 		std::cout << "error" << std::endl;
 	}
-	if (!buffer2.loadFromFile("12.FLAC"))
-	{
-		std::cout << "error" << std::endl;
-	}
+
 
 	sf::Sound sound1, sound2;
 	sound1.setBuffer(buffer);
